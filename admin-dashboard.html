@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdminPro — Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="sidebar-overlay" id="overlay" onclick="closeMobile()"></div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <a href="#" class="sidebar-brand" onclick="return false;">
+      <div class="brand-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+      <span class="brand-text">AdminPro</span>
+    </a>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Utama</div>
+      <ul class="list-unstyled mt-2">
+        <li><a class="nav-link-sb active" onclick="navigate('dashboard',this)"><i class="bi bi-grid-1x2-fill"></i><span
+              class="nav-link-text">Dashboard</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('analitik',this)"><i class="bi bi-bar-chart-line-fill"></i><span
+              class="nav-link-text">Analitik</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-inbox-fill"></i><span
+              class="nav-link-text">Laporan</span><span class="badge-sb">3</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Manajemen</div>
+      <ul class="list-unstyled mt-2">
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-people-fill"></i><span
+              class="nav-link-text">Pengguna</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-box-seam-fill"></i><span
+              class="nav-link-text">Produk</span><span class="badge-sb">12</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-bag-check-fill"></i><span
+              class="nav-link-text">Pesanan</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-truck"></i><span
+              class="nav-link-text">Pengiriman</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-chat-dots-fill"></i><span
+              class="nav-link-text">Pesan</span><span class="badge-sb">5</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Konten</div>
+      <ul class="list-unstyled mt-2">
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i
+              class="bi bi-file-earmark-richtext-fill"></i><span class="nav-link-text">Artikel</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-images"></i><span
+              class="nav-link-text">Media</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-calendar3"></i><span
+              class="nav-link-text">Kalender</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Sistem</div>
+      <ul class="list-unstyled mt-2">
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-shield-fill-check"></i><span
+              class="nav-link-text">Keamanan</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-gear-fill"></i><span
+              class="nav-link-text">Pengaturan</span></a></li>
+        <li><a class="nav-link-sb" onclick="navigate('other',this)"><i class="bi bi-question-circle-fill"></i><span
+              class="nav-link-text">Bantuan</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">AR</div>
+        <div class="user-details">
+          <div class="user-name">Andi Rahman</div>
+          <div class="user-role">Super Admin</div>
+        </div>
+        <i class="bi bi-three-dots ms-auto" style="color:rgba(255,255,255,0.4); font-size:18px;"></i>
+      </div>
+    </div>
+  </aside>
+
+  <!-- TOPBAR -->
+  <header id="topbar">
+    <button class="toggle-btn" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+    <div class="topbar-search d-none d-sm-block">
+      <i class="bi bi-search"></i>
+      <input type="text" placeholder="Cari sesuatu...">
+    </div>
+    <div class="topbar-right">
+      <span id="pageTitle" class="d-none d-md-block">Dashboard</span>
+      <span class="topbar-date d-none d-lg-block" style="font-size:12px;color:#bbb;">Selasa, 16 Jun 2026</span>
+      <button class="icon-btn"><i class="bi bi-bell-fill"></i><span class="notif-dot"></span></button>
+      <button class="icon-btn d-none d-sm-flex"><i class="bi bi-envelope-fill"></i></button>
+      <button class="icon-btn d-none d-sm-flex"><i class="bi bi-moon-stars-fill"></i></button>
+      <div class="topbar-avatar">AR</div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main">
+    <div class="page-content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="d-flex align-items-start justify-content-between page-header flex-wrap gap-2">
+          <div>
+            <h1 class="page-title-h">Dashboard</h1>
+            <p class="page-subtitle">Selamat datang kembali, Andi! Ini ringkasan hari ini.</p>
+          </div>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small">
+              <li class="breadcrumb-item"><a href="#" style="color:var(--brand)" onclick="return false">Beranda</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="stat-card g1">
+              <div class="stat-icon"><i class="bi bi-cash-stack"></i></div>
+              <div class="stat-val">Rp 284jt</div>
+              <div class="stat-label">Total Pendapatan</div>
+              <div class="stat-change"><span class="up"><i class="bi bi-arrow-up-right"></i> 12.5%</span> dari bulan
+                lalu</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card g2">
+              <div class="stat-icon"><i class="bi bi-bag-fill"></i></div>
+              <div class="stat-val">1,842</div>
+              <div class="stat-label">Total Pesanan</div>
+              <div class="stat-change"><span class="up"><i class="bi bi-arrow-up-right"></i> 8.3%</span> dari bulan lalu
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card g3">
+              <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+              <div class="stat-val">9,271</div>
+              <div class="stat-label">Total Pengguna</div>
+              <div class="stat-change"><span class="up"><i class="bi bi-arrow-up-right"></i> 5.7%</span> dari bulan lalu
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card g4">
+              <div class="stat-icon"><i class="bi bi-star-fill"></i></div>
+              <div class="stat-val">4.89</div>
+              <div class="stat-label">Rating Rata-rata</div>
+              <div class="stat-change"><span class="up"><i class="bi bi-arrow-up-right"></i> 0.2</span> dari bulan lalu
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-lg-8">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Tren Pendapatan & Pesanan</div>
+                  <div class="chart-sub">Januari – Juni 2026</div>
+                </div>
+                <div class="chart-legend">
+                  <span><span class="legend-dot" style="background:#6C63FF"></span><small>Pendapatan</small></span>
+                  <span><span class="legend-dot" style="background:#f5576c"></span><small>Pesanan</small></span>
+                </div>
+              </div>
+              <canvas id="lineChart" height="105"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Kategori Penjualan</div>
+                  <div class="chart-sub">Distribusi produk</div>
+                </div>
+              </div>
+              <canvas id="pieChart" height="180"></canvas>
+              <div class="mt-3">
+                <div class="d-flex flex-column gap-2" id="pieLegend"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-5">
+            <div class="mini-card">
+              <div class="chart-title mb-3">Target Bulanan</div>
+              <div class="d-flex flex-column gap-3">
+                <div>
+                  <div class="progress-label"><span>Pendapatan</span><span>78%</span></div>
+                  <div class="progress">
+                    <div class="progress-bar" style="width:78%;background:linear-gradient(90deg,#6C63FF,#a78bfa)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="progress-label"><span>Pesanan</span><span>65%</span></div>
+                  <div class="progress">
+                    <div class="progress-bar" style="width:65%;background:linear-gradient(90deg,#f093fb,#f5576c)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="progress-label"><span>Pengguna Baru</span><span>91%</span></div>
+                  <div class="progress">
+                    <div class="progress-bar" style="width:91%;background:linear-gradient(90deg,#4facfe,#00f2fe)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="progress-label"><span>Kepuasan</span><span>87%</span></div>
+                  <div class="progress">
+                    <div class="progress-bar" style="width:87%;background:linear-gradient(90deg,#43e97b,#38f9d7)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="progress-label"><span>Retensi</span><span>54%</span></div>
+                  <div class="progress">
+                    <div class="progress-bar" style="width:54%;background:linear-gradient(90deg,#fa8231,#f7b731)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Penjualan per Hari (Juni 2026)</div>
+                  <div class="chart-sub">Total transaksi harian</div>
+                </div>
+              </div>
+              <canvas id="barChart" height="130"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-12">
+            <div class="table-card">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Daftar Pesanan Terbaru</div>
+                  <div class="chart-sub">Data transaksi real-time</div>
+                </div>
+                <button class="btn-brand"><i class="bi bi-plus-lg me-1"></i> Tambah Pesanan</button>
+              </div>
+              <div class="table-responsive">
+                <table id="ordersTable" class="table table-hover" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Pelanggan</th>
+                      <th>Produk</th>
+                      <th>Tanggal</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ordersBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <div class="mini-card">
+              <div class="chart-title mb-3">Aktivitas Terbaru</div>
+              <div id="activityFeed"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Produk Terlaris</div>
+                  <div class="chart-sub">Berdasarkan unit terjual</div>
+                </div>
+              </div>
+              <canvas id="hbarChart" height="180"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END PAGE DASHBOARD -->
+
+
+      <!--ANALITIK-->
+      <div class="page" id="page-analitik">
+        <div class="d-flex align-items-start justify-content-between page-header flex-wrap gap-2">
+          <div>
+            <h1 class="page-title-h">Analitik</h1>
+            <p class="page-subtitle">Pantau performa bisnis secara mendalam — real-time &amp; historis.</p>
+          </div>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small">
+              <li class="breadcrumb-item"><a href="#" style="color:var(--brand)" onclick="return false">Beranda</a></li>
+              <li class="breadcrumb-item active">Analitik</li>
+            </ol>
+          </nav>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <label><i class="bi bi-calendar3 me-1"></i> Periode:</label>
+          <select class="filter-select" id="periodFilter" onchange="updateAnalytics()">
+            <option value="7">7 Hari Terakhir</option>
+            <option value="30" selected>30 Hari Terakhir</option>
+            <option value="90">3 Bulan Terakhir</option>
+            <option value="180">6 Bulan Terakhir</option>
+            <option value="365">1 Tahun Terakhir</option>
+          </select>
+          <label class="ms-2">Kategori:</label>
+          <select class="filter-select" id="catFilter">
+            <option>Semua Kategori</option>
+            <option>Elektronik</option>
+            <option>Fashion</option>
+            <option>Makanan</option>
+            <option>Kesehatan</option>
+          </select>
+          <label class="ms-2">Channel:</label>
+          <select class="filter-select">
+            <option>Semua Channel</option>
+            <option>Website</option>
+            <option>Mobile App</option>
+            <option>Marketplace</option>
+          </select>
+          <button class="filter-btn ms-auto"><i class="bi bi-funnel me-1"></i>Terapkan</button>
+          <button class="filter-btn outline"><i class="bi bi-download me-1"></i>Export</button>
+        </div>
+
+        <!-- KPI Strip -->
+        <div class="kpi-strip">
+          <div class="kpi-box kpi-1">
+            <div class="kpi-label">Pendapatan</div>
+            <div class="kpi-val">Rp 1,47 M</div>
+            <div class="kpi-change pos"><i class="bi bi-arrow-up-right"></i> +14.2% vs periode lalu</div>
+          </div>
+          <div class="kpi-box kpi-2">
+            <div class="kpi-label">Total Transaksi</div>
+            <div class="kpi-val">8,412</div>
+            <div class="kpi-change pos"><i class="bi bi-arrow-up-right"></i> +9.8%</div>
+          </div>
+          <div class="kpi-box kpi-3">
+            <div class="kpi-label">Pengguna Aktif</div>
+            <div class="kpi-val">4,891</div>
+            <div class="kpi-change pos"><i class="bi bi-arrow-up-right"></i> +6.1%</div>
+          </div>
+          <div class="kpi-box kpi-4">
+            <div class="kpi-label">Konversi</div>
+            <div class="kpi-val">3.74%</div>
+            <div class="kpi-change neg"><i class="bi bi-arrow-down-right"></i> -0.3%</div>
+          </div>
+          <div class="kpi-box kpi-5">
+            <div class="kpi-label">Avg Order Value</div>
+            <div class="kpi-val">Rp 174rb</div>
+            <div class="kpi-change pos"><i class="bi bi-arrow-up-right"></i> +4.5%</div>
+          </div>
+          <div class="kpi-box kpi-6">
+            <div class="kpi-label">Churn Rate</div>
+            <div class="kpi-val">2.1%</div>
+            <div class="kpi-change pos"><i class="bi bi-arrow-down-right"></i> -0.4%</div>
+          </div>
+        </div>
+
+        <!-- Revenue vs Target Area Chart -->
+        <div class="row g-3 mb-4">
+          <div class="col-lg-8">
+            <div class="chart-card">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Pendapatan vs Target</div>
+                  <div class="chart-sub">Tren harian selama periode terpilih</div>
+                </div>
+                <div class="chart-legend">
+                  <span><span class="legend-dot" style="background:#6C63FF"></span><small>Aktual</small></span>
+                  <span><span class="legend-dot"
+                      style="background:#e0e0ff;border:1px solid #6C63FF"></span><small>Target</small></span>
+                  <span><span class="legend-dot" style="background:#f5576c"></span><small>Tahun Lalu</small></span>
+                </div>
+              </div>
+              <canvas id="aRevChart" height="100"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Sumber Pendapatan</div>
+                  <div class="chart-sub">Proporsi channel penjualan</div>
+                </div>
+              </div>
+              <canvas id="aSrcChart" height="165"></canvas>
+              <div class="mt-3 d-flex flex-column gap-2" id="srcLegend"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pengunjung & Bounce Rate + Scatter -->
+        <div class="row g-3 mb-4">
+          <div class="col-lg-7">
+            <div class="chart-card">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Traffic Pengunjung</div>
+                  <div class="chart-sub">Sesi unik, halaman dilihat, dan bounce rate</div>
+                </div>
+                <div class="chart-legend">
+                  <span><span class="legend-dot" style="background:#4facfe"></span><small>Sesi</small></span>
+                  <span><span class="legend-dot" style="background:#43e97b"></span><small>Halaman/sesi</small></span>
+                </div>
+              </div>
+              <canvas id="aTrafficChart" height="110"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Konversi per Kategori</div>
+                  <div class="chart-sub">Jumlah terjual vs pendapatan</div>
+                </div>
+              </div>
+              <canvas id="aBubbleChart" height="148"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stat Cards Analitik Row -->
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="stat-card g1">
+              <div class="stat-icon"><i class="bi bi-eye-fill"></i></div>
+              <div class="stat-val">312K</div>
+              <div class="stat-label">Total Tayangan</div>
+              <div class="stat-change"><span class="up"><i class="bi bi-arrow-up-right"></i> 22.1%</span> vs sebelumnya
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card g6">
+              <div class="stat-icon"><i class="bi bi-cursor-fill"></i></div>
+              <div class="stat-val">2.8%</div>
+              <div class="stat-label">Click-Through Rate</div>
+              <div class="stat-change"><span class="up"><i class="bi bi-arrow-up-right"></i> 0.4%</span> vs sebelumnya
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card g5">
+              <div class="stat-icon"><i class="bi bi-clock-fill"></i></div>
+              <div class="stat-val">3m 42s</div>
+              <div class="stat-label">Avg Waktu di Situs</div>
+              <div class="stat-change"><span class="up"><i class="bi bi-arrow-up-right"></i> 18s</span> vs sebelumnya
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card g2">
+              <div class="stat-icon"><i class="bi bi-cart-check-fill"></i></div>
+              <div class="stat-val">68.4%</div>
+              <div class="stat-label">Cart Completion Rate</div>
+              <div class="stat-change"><span class="up"><i class="bi bi-arrow-up-right"></i> 3.2%</span> vs sebelumnya
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cohort Retention + Funnel -->
+        <div class="row g-3 mb-4">
+          <div class="col-lg-6">
+            <div class="chart-card">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Retensi Pengguna (Cohort)</div>
+                  <div class="chart-sub">Persentase pengguna aktif per minggu sejak registrasi</div>
+                </div>
+              </div>
+              <canvas id="aCohortChart" height="140"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Funnel Konversi</div>
+                  <div class="chart-sub">Dari kunjungan hingga pembelian selesai</div>
+                </div>
+              </div>
+              <div class="mt-2" id="funnelChart"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Heatmap aktivitas + Radar -->
+        <div class="row g-3 mb-4">
+          <div class="col-lg-7">
+            <div class="chart-card">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Heatmap Aktivitas Mingguan</div>
+                  <div class="chart-sub">Jam aktif pembelian (UTC+7)</div>
+                </div>
+              </div>
+              <div id="heatmapWrap" class="mt-1"></div>
+              <div class="d-flex align-items-center gap-2 mt-3 justify-content-end">
+                <span style="font-size:11px;color:#aaa">Rendah</span>
+                <div style="display:flex;gap:3px;">
+                  <div style="width:14px;height:14px;border-radius:3px;background:#e8e8ff"></div>
+                  <div style="width:14px;height:14px;border-radius:3px;background:#b8b0ff"></div>
+                  <div style="width:14px;height:14px;border-radius:3px;background:#8880f0"></div>
+                  <div style="width:14px;height:14px;border-radius:3px;background:#6C63FF"></div>
+                  <div style="width:14px;height:14px;border-radius:3px;background:#3d35cc"></div>
+                </div>
+                <span style="font-size:11px;color:#aaa">Tinggi</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Skor Performa</div>
+                  <div class="chart-sub">Evaluasi 6 dimensi bisnis</div>
+                </div>
+              </div>
+              <canvas id="aRadarChart" height="200"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Device + Geo + DataTable Analitik -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Perangkat Pengguna</div>
+                  <div class="chart-sub">Mobile vs Desktop vs Tablet</div>
+                </div>
+              </div>
+              <canvas id="aDeviceChart" height="180"></canvas>
+              <div class="mt-3 d-flex flex-column gap-2" id="deviceLegend"></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Sumber Traffic</div>
+                  <div class="chart-sub">Asal pengunjung</div>
+                </div>
+              </div>
+              <canvas id="aSourceChart" height="180"></canvas>
+              <div class="mt-3 d-flex flex-column gap-2" id="sourceLegend"></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Top Kota</div>
+                  <div class="chart-sub">Berdasarkan jumlah transaksi</div>
+                </div>
+              </div>
+              <canvas id="aCityChart" height="220"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Analitik Produk -->
+        <div class="row g-3 mb-4">
+          <div class="col-12">
+            <div class="table-card">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Analitik per Produk</div>
+                  <div class="chart-sub">Performa detail setiap produk periode terpilih</div>
+                </div>
+                <div class="d-flex gap-2">
+                  <button class="btn-brand"><i class="bi bi-download me-1"></i>Export CSV</button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table id="analyticsTable" class="table table-hover" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>Produk</th>
+                      <th>Kategori</th>
+                      <th>Tayangan</th>
+                      <th>Klik</th>
+                      <th>CTR</th>
+                      <th>Terjual</th>
+                      <th>Pendapatan</th>
+                      <th>Konversi</th>
+                      <th>Tren</th>
+                    </tr>
+                  </thead>
+                  <tbody id="analyticsBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stacked Bar Bulanan + Growth Rate -->
+        <div class="row g-3 mb-4">
+          <div class="col-lg-7">
+            <div class="chart-card">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Penjualan Stacked per Kategori</div>
+                  <div class="chart-sub">Komposisi bulanan 2026</div>
+                </div>
+              </div>
+              <canvas id="aStackedChart" height="120"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="chart-card h-100">
+              <div class="card-heading">
+                <div>
+                  <div class="chart-title">Growth Rate MoM</div>
+                  <div class="chart-sub">Pertumbuhan bulan ke bulan (%)</div>
+                </div>
+              </div>
+              <canvas id="aGrowthChart" height="148"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- END PAGE ANALITIK -->
+
+
+      <!-- PAGE: OTHER (placeholder) -->
+      <div class="page" id="page-other">
+        <div class="page-header">
+          <h1 class="page-title-h" id="otherTitle">Halaman</h1>
+          <p class="page-subtitle">Halaman ini sedang dalam pengembangan.</p>
+        </div>
+        <div class="chart-card text-center py-5">
+          <i class="bi bi-tools" style="font-size:48px;color:#c5c0ff;"></i>
+          <p class="mt-3" style="color:#aaa;font-size:14px;">Fitur segera hadir. Kembali ke <a href="#"
+              onclick="navigate('dashboard', document.querySelector('.nav-link-sb'))"
+              style="color:var(--brand)">Dashboard</a> atau <a href="#" onclick="navigate('analitik', null)"
+              style="color:var(--brand)">Analitik</a>.</p>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
